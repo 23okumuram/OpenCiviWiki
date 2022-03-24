@@ -282,6 +282,14 @@ def edit_user(request):
 
     return JsonResponse(Profile.objects.summarize(profile))
 
+@login_required
+def delete_user(request):
+    """
+    Delete profile
+    """
+    profile = Profile.objects.get(user=request.user)
+    # delete user
+
 
 @login_required
 def upload_profile_image(request):
