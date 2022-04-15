@@ -76,6 +76,28 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = "accounts/users/password_reset_complete.html"
 
+# FIXME: lol im so fucked for this project
+class DeleteAccountConfirmationView(LoginRequiredMixin, UpdateView):
+    login_url = "accounts_login"
+    form_class = ProfileEditForm
+    success_url = reverse_lazy("accounts_settings")
+    template_name = "accounts/delete-user.html"
+
+    def get_object(self, queryset=None):
+        return Profile.objects.get(user=self.request.user)
+
+    def get_initial(self):
+        profile = Profile.objects.get(user=self.request.user)
+        self.initial.update(
+            {
+                "username": profile.user.username,
+                "email": profile.user.email,
+                "first_name": profile.first_name or None,
+                "last_name": profile.last_name or None,
+                "about_me": profile.about_me or None,
+            }
+        )
+        return super(DeleteAccountConfirmationView, self).get_initial()
 
 class SettingsView(LoginRequiredMixin, UpdateView):
     """A form view to edit Profile"""
