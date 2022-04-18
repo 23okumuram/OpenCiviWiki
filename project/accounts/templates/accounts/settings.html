@@ -4,8 +4,8 @@
 {% block page_title %}Settings{% endblock page_title %}
 
 {% block extra_css %}
-<link type="text/css" rel="stylesheet/less" href="{% static " less/base.less" %}" />
-<link type="text/css" rel="stylesheet/less" href="{% static " less/utils.less" %}" />
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/base.less" %}"/>
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/utils.less" %}"/>
 {% endblock extra_css %}
 
 {% block backbone_template %}
@@ -58,12 +58,12 @@
 
 {% block body_class %}grey lighten-4{% endblock body_class %}
 {% block content %}
-{% include "global_nav.html" %}
-<div id="settings"></div>
+    {% include "global_nav.html" %}
+    <div id="settings"></div>
 {% endblock content %}
 
 {% block extra_js %}
-<script type="text/javascript" src="{% static " js/settings.js" %}"></script>
+<script type="text/javascript" src="{% static "js/settings.js" %}"></script>
 <script type="text/javascript">
     var data = {};
     data.username = '{{user.username}}';
@@ -78,5 +78,4 @@
     userModel.fetch();
     settingsView.render();
 </script>
-
 {% endblock extra_js %}

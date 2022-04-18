@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block page_title %}Settings{% endblock page_title %}
+{% block page_title %}Delete Account{% endblock page_title %}
 {% block extra_css %}
 <link type="text/css" rel="stylesheet/less" href="{% static " less/utils.less" %}" />
 <link type="text/css" rel="stylesheet/less" href="{% static " less/setup.less" %}" />
@@ -16,17 +16,21 @@
             <div class="step-title">
                 <div class="section">
                     <div class="title-lato center">
-                        Delete Confirmation Page
+                        Account Deletion Confirmation
                     </div>
                 </div>
                 <div class="accent-line"></div>
-                {{form.non_field_errors}}
                 <form style="padding-top: 10px;" method="POST">
-                    <input class='btn' type='delete' value="Delete Account"></input>
+                    {% csrf_token %}
+                    <p>{% trans "Are you sure you want to delete your account" %}{{ user }}?</p>
+                    <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
                 </form>
+                <br><p>{% trans "No keep my account" %}</p>
+                <a href="/" class="btn btn-outline-primary">{% trans "Return to site" %}</a>
             </div>
-            <div>
-            </div>
+        </div>
+    </div>
 </section>
 </body>
 {% endblock content %}
+

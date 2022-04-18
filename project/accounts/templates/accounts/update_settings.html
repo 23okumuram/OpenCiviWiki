@@ -57,13 +57,19 @@
                     <div class="row center">
                         {%if not readonly %}
                         <input class='btn' type='submit' value="Save Changes"></input>
-                        <input class='btn' type='delete' value="Delete Account"></input>
                         {% endif%}
                     </div>
                 </form>
+                <div class="row center">
+                    {% if not readonly %}
+                    <!-- this is the button to delete the account
+                        - needs to be redirect to delete.html -->
+                    <a href='../delete'>Delete Account</a>
+                    {% endif %}
+                </div>
             </div>
-            <div>
-            </div>
+        </div>
+    </div>
 </section>
 </body>
 {% endblock content %}

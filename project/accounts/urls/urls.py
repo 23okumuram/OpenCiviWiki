@@ -10,7 +10,7 @@ from accounts.views import (
     PasswordResetCompleteView,
     ProfileSetupView,
     UserProfileView,
-    DeleteAccountConfirmationView,
+    DeleteAccountView,
 )
 
 urlpatterns = [
@@ -19,10 +19,14 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="accounts/register/login.html"),
         name="accounts_login",
     ),
+    path(
+        "delete/",
+        DeleteAccountView.as_view(template_name="accounts/delete.html"),
+        name="accounts_delete"),
+
     path("logout/", auth_views.LogoutView.as_view(), name="accounts_logout"),
     path("register/", RegisterView.as_view(), name="accounts_register"),
     path("settings/", SettingsView.as_view(), name="accounts_settings"),
-    path("delete-account/", DeleteAccountConfirmationView.as_view(), name="accounts_delete"),
     path("setup/", ProfileSetupView.as_view(), name="accounts_profile_setup"),
     path("profile/<str:username>/", UserProfileView.as_view(), name="profile"),
     path(

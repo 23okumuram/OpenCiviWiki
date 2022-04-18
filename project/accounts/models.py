@@ -163,15 +163,6 @@ class Profile(models.Model):
 
         super(Profile, self).save(*args, **kwargs)
 
-    # FIXME: lol im so fucked for this project
-    def delete(self, *args, **kwargs):
-        if self.profile_image:
-            # remove it
-            self.profile_image = None
-        self.first_name = "account"
-        self.last_name = "deleted"
-        super(Profile, self).delete(*args, **kwargs)
-
     def resize_profile_image(self):
         """
         Resizes and crops the user uploaded image and creates a thumbnail version of it
@@ -222,4 +213,3 @@ class Profile(models.Model):
             return True
         else:
             return False
-    

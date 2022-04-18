@@ -260,6 +260,30 @@ def get_feed(request):
 
 
 @login_required
+def delete_user(request, username):
+    """
+    Delete Profile Model
+    """
+    profile = Profile.objects.get(user=request.user)
+    data = {
+        "first_name": "user",
+        "last_name": "deleted",
+        "about_me": "",
+        "email": "",
+    }
+
+    profile.__dict__.update(data)
+    try:
+        profile.save()
+    except Exception as e:
+        return HttpResponseServerError(reason=str(e))
+
+    profile.refresh_from_db()
+
+    return JsonResponse(Profile.objects.summarize(profile))
+
+
+@login_required
 def edit_user(request):
     """
     Edit Profile Model
@@ -281,29 +305,6 @@ def edit_user(request):
     profile.refresh_from_db()
 
     return JsonResponse(Profile.objects.summarize(profile))
-
-@login_required
-def delete_user(request):
-    """
-    Delete user
-    """
-    profile = Profile.objects.get(user=request.user)
-    data = {
-        "first_name": request.POST.get("first_name", profile.first_name),
-        "last_name": request.POST.get("last_name", profile.last_name),
-        "about_me": request.POST.get("about_me", profile.about_me),
-    }
-
-    profile.__dict__.update(data)
-    try:
-        profile.delete()
-    except Exception as e:
-        return HttpResponseServerError(reason=str(e))
-
-    profile.refresh_from_db()
-
-    return JsonResponse(Profile.objects.summarize(profile))
-    # delete user
 
 
 @login_required

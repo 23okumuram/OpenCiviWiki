@@ -100,6 +100,12 @@ class UserRegistrationForm(ModelForm):
 
         return password
 
+class UserDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        # Form has only submit button.  Empty "fields" list still necessary, though.
+        fields = []
+
 
 class ProfileEditForm(forms.ModelForm):
     """
